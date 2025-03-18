@@ -1,20 +1,27 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Dessert list</ion-title>
+    <ion-button (click)="logout()">
+      <ion-icon name="log-out-outline"></ion-icon>Log Out
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let postre of postres$ | async">
+      <ion-label>{{ postre.title }}</ion-label>
+      <ion-button fill="clear" color="primary" (click)="editPostre(postre)">Edit
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" color="danger" (click)="postre.id ? deletePostre(postre.id) : null">Delete
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>      
+    </ion-item>
+  </ion-list>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-item>
+    <ion-input [(ngModel)]="postreText" placeholder="Nuevo postre"></ion-input>
+    <ion-button (click)="addPostre()">{{ editingPostreId ? 'Update' : 'Add' }}</ion-button>
+  </ion-item>
 </ion-content>
